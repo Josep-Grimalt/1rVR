@@ -26,6 +26,7 @@ public class DirectInteractable : MonoBehaviour
             interactable.selectEntered.AddListener(Selected);
             interactable.selectExited.AddListener(Exit);
             interactable.activated.AddListener(Activated);
+            interactable.deactivated.AddListener(Deactivated);
         }
 
     }
@@ -43,10 +44,13 @@ public class DirectInteractable : MonoBehaviour
     private void Activated(ActivateEventArgs arg0)
     {
         Debug.Log(arg0.interactorObject.transform.name + " ha activat " + arg0.interactableObject.transform.name);
-        if (true)
-            arg0.interactableObject.transform.GetComponent<Renderer>().material = materials[1];
-        else
-            arg0.interactableObject.transform.GetComponent<Renderer>().material = materials[0];
+        arg0.interactableObject.transform.GetComponent<Renderer>().material = materials[1];
+    }
+
+    private void Deactivated(DeactivateEventArgs arg0)
+    {
+        Debug.Log(arg0.interactorObject.transform.name + " ha desactivat " + arg0.interactableObject.transform.name);
+        arg0.interactableObject.transform.GetComponent<Renderer>().material = materials[0];
     }
 
     private void Exit(SelectExitEventArgs arg0)
