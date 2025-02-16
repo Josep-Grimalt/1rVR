@@ -4090,37 +4090,6 @@ Transform:
   - {fileID: 1780764591}
   m_Father: {fileID: 1700053744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &446065903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 446065904}
-  m_Layer: 0
-  m_Name: Climb Interactor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &446065904
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446065903}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1094801525}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &465371067
 GameObject:
   m_ObjectHideFlags: 0
@@ -7960,7 +7929,6 @@ Transform:
   - {fileID: 784974580}
   - {fileID: 1918690712}
   - {fileID: 1303143827}
-  - {fileID: 446065904}
   m_Father: {fileID: 593340153}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1094801526
