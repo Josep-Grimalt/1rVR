@@ -1203,7 +1203,9 @@ MonoBehaviour:
     overrideGroupMembers:
     - {fileID: 345397025}
   - groupMember: {fileID: 1988308704}
-    overrideGroupMembers: []
+    overrideGroupMembers:
+    - {fileID: 613442376}
+    - {fileID: 345397025}
 --- !u!1 &81531760
 GameObject:
   m_ObjectHideFlags: 0
