@@ -27,6 +27,7 @@ public class CodeController : MonoBehaviour
         }
         else
         {
+            codeText.text = "";
             StartCoroutine(WrongCode(.2f));
         }
     }
