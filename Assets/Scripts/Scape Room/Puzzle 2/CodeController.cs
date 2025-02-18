@@ -24,6 +24,7 @@ public class CodeController : MonoBehaviour
         if (codeText.text.Equals("8624"))
         {
             eventManager.CodeEntered();
+            GameObject.Find("Ray Interactor").gameObject.SetActive(false);
         }
         else
         {
