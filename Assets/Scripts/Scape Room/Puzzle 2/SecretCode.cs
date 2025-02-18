@@ -6,7 +6,7 @@ public class SecretCode : MonoBehaviour
 
     private void OnEnable()
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -14,12 +14,12 @@ public class SecretCode : MonoBehaviour
         flashlight = other.GetComponentInChildren<Light>();
         if (flashlight && flashlight.enabled)
         {
-            gameObject.SetActive(true);
+            transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }

@@ -1,19 +1,20 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TargetController : MonoBehaviour
 {
-    private XRSocketInteractor socket;
     private EventManager eventManager;
+    private XRSocketInteractor socket;
 
-    void Awake()
+    private void Awake()
     {
         eventManager = GameObject.Find("Event Manager").GetComponent<EventManager>();
         socket = GetComponent<XRSocketInteractor>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         socket.selectEntered.AddListener(TargetHit);
     }
@@ -22,4 +23,5 @@ public class TargetController : MonoBehaviour
     {
         eventManager.TargetHit();
     }
+
 }
