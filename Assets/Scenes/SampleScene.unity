@@ -5798,9 +5798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8974433c113ac0499ff43a58b4cec50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingPoint: {fileID: 1476439583}
   bullet: {fileID: 4581872062042370349, guid: 209b22b5f2a1c4441af53daec8d44233, type: 3}
   magCapacity: 20
-  magSocket: {fileID: 0}
+  magSocket: {fileID: 1374494240}
   leftReleaseButton:
     m_UseReference: 0
     m_Action:

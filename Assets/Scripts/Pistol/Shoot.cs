@@ -8,6 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class Shoot : MonoBehaviour
 {
+    [SerializeField] private Transform shootingPoint;
     [SerializeField] private GameObject bullet;
     [SerializeField] private int magCapacity;
     [SerializeField] private XRSocketInteractor magSocket;
@@ -74,9 +75,8 @@ public class Shoot : MonoBehaviour
     {
         if (mag > 0)
         {
-            Debug.Log("Shooting");
             mag--;
-            GameObject go = Instantiate(bullet, transform.position, transform.rotation);
+            GameObject go = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
 
             Destroy(go, 2f);
         }
