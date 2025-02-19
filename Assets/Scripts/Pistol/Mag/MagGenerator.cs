@@ -24,12 +24,14 @@ public class MagGenerator : MonoBehaviour
     private IEnumerator SpawnMag()
     {
         if(magGenerated) yield return null;
+        if(!socket.isSelectActive) yield return null;
 
         magGenerated = true;
 
         GameObject go = Instantiate(mag, transform.position, transform.rotation);
 
         go.transform.SetParent(transform);
+        
         socket.interactablesSelected.Add(go.GetComponent<XRGrabInteractable>());
         
         yield return new WaitForSeconds(delay);
