@@ -33,33 +33,15 @@ public class Shoot : MonoBehaviour
     {
         grabbable.selectEntered.AddListener(Grabbed);
 
-        leftReleaseButton.action.performed += LeftHandReload;
-        rightReleaseButton.action.performed += RightHandReload;
+        leftReleaseButton.action.started += LeftHandReload;
+        rightReleaseButton.action.started += RightHandReload;
         leftReleaseButton.action.canceled += NoButton;
         rightReleaseButton.action.canceled += NoButton;
     }
 
-    private void NoButton(InputAction.CallbackContext context)
-    {
-        leftHandButton = false;
-        rightHandButton = false;
-    }
-
-    private void RightHandReload(InputAction.CallbackContext context)
-    {
-        leftHandButton = false;
-        rightHandButton = true;
-    }
-
-    private void LeftHandReload(InputAction.CallbackContext context)
-    {
-        rightHandButton = false;
-        leftHandButton = true;
-    }
-
     void Update()
     {
-        if((leftHandButton && isLeftHand) || 
+        if ((leftHandButton && isLeftHand) ||
         (rightHandButton && !isLeftHand))
         {
             ReleaseMag();
@@ -97,11 +79,30 @@ public class Shoot : MonoBehaviour
     public void ReleaseMag()
     {
         Debug.Log("Mag released");
+        magSocket.interactablesSelected.RemoveRange(0, magSocket.interactablesSelected.Count);
     }
 
-    
+
     private void Grabbed(SelectEnterEventArgs arg0)
     {
         isLeftHand = arg0.interactorObject.handedness.ToString().Equals("Left");
+    }
+
+    private void NoButton(InputAction.CallbackContext context)
+    {
+        leftHandButton = false;
+        rightHandButton = false;
+    }
+
+    private void RightHandReload(InputAction.CallbackContext context)
+    {
+        leftHandButton = false;
+        rightHandButton = true;
+    }
+
+    private void LeftHandReload(InputAction.CallbackContext context)
+    {
+        rightHandButton = false;
+        leftHandButton = true;
     }
 }

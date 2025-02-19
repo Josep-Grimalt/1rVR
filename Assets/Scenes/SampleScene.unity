@@ -8473,6 +8473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mag: {fileID: 384032492543668981, guid: eb736fc7337da37408f918b315e1688a, type: 3}
+  socket: {fileID: 1661989912}
+  delay: 5
 --- !u!1 &1689172423
 GameObject:
   m_ObjectHideFlags: 0
