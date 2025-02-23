@@ -58,6 +58,12 @@ public class Shoot : MonoBehaviour
     private void OnDisable()
     {
         grabbable.selectEntered.RemoveAllListeners();
+        magSocket.selectEntered.RemoveListener(Loaded);
+
+        leftReleaseButton.action.started -= LeftHandReload;
+        rightReleaseButton.action.started -= RightHandReload;
+        leftReleaseButton.action.canceled -= NoButton;
+        rightReleaseButton.action.canceled -= NoButton;
     }
 
     public void Shot()
