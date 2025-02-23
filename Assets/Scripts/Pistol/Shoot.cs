@@ -59,7 +59,6 @@ public class Shoot : MonoBehaviour
         {
             mag--;
             GameObject go = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
-
             Destroy(go, 2f);
         }
     }
@@ -79,13 +78,18 @@ public class Shoot : MonoBehaviour
     public void ReleaseMag()
     {
         Debug.Log("Mag released");
-        magSocket.interactablesSelected.RemoveRange(0, magSocket.interactablesSelected.Count);
+        mag = 0;
+        magSocket.allowSelect = false;
+        magSocket.GetOldestInteractableSelected().transform.parent = null;
+        magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = false;
+        Destroy(magSocket.GetOldestInteractableSelected().transform.gameObject, 30f);
     }
 
 
     private void Grabbed(SelectEnterEventArgs arg0)
     {
         isLeftHand = arg0.interactorObject.handedness.ToString().Equals("Left");
+        magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     private void NoButton(InputAction.CallbackContext context)
