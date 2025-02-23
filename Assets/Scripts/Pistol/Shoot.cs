@@ -65,7 +65,7 @@ public class Shoot : MonoBehaviour
         if (mag > 0)
         {
             mag--;
-            GameObject go = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+            GameObject go = Instantiate(bullet, shootingPoint.position, transform.rotation);
             Destroy(go, 2f);
         }
     }
