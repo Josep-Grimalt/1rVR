@@ -48,6 +48,12 @@ public class Shoot : MonoBehaviour
 
     void Update()
     {
+        if (mag < 1)
+        {
+            Reload();
+            return;
+        }
+
         if ((leftHandButton && isLeftHand) ||
         (rightHandButton && !isLeftHand))
         {
