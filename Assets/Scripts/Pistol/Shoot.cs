@@ -1,10 +1,10 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using System.Collections;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using System;
 
 public class Shoot : MonoBehaviour
 {
@@ -17,7 +17,6 @@ public class Shoot : MonoBehaviour
     private int mag;
     private XRGrabInteractable grabbable;
     private bool isLeftHand, leftHandButton, rightHandButton;
-
 
     void Awake()
     {
@@ -43,39 +42,42 @@ public class Shoot : MonoBehaviour
 
     private void ReleaseMag(SelectExitEventArgs arg0)
     {
-        if (mag < 1)
-        {
-            mag = 0;
-        }
-        else
-        {
-            mag = 1;
-        }
+        Debug.Log("Mag released");
 
-        magSocket.allowSelect = false;
-        magSocket.GetOldestInteractableSelected().transform.parent = null;
-        magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = false;
-        Destroy(magSocket.GetOldestInteractableSelected().transform.gameObject, 30f);
+        if (mag < 1) mag = 0;
+        else mag = 1;
+
+        magSocket.allowSelect = true;
+
+        var interactable = magSocket.GetOldestInteractableSelected();
+        if (interactable != null)
+        {
+            Transform magTransform = interactable.transform;
+            magTransform.parent = null;
+
+            if (magTransform.TryGetComponent<Rigidbody>(out var rb))
+                rb.isKinematic = false;
+
+            Destroy(magTransform.gameObject, 30f);
+        }
     }
 
     private void Loaded(SelectEnterEventArgs arg0)
     {
-        magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = true;
+        var interactable = magSocket.GetOldestInteractableSelected();
+        if (interactable != null)
+        {
+            Rigidbody rb = interactable.transform.GetComponent<Rigidbody>();
+            if (rb != null) rb.isKinematic = true;
+        }
         Reload();
     }
 
     void Update()
     {
-        if (mag < 1)
+        if ((leftHandButton && isLeftHand) || (rightHandButton && !isLeftHand))
         {
-            ReleaseMag();
-            return;
-        }
-
-        if ((leftHandButton && isLeftHand) ||
-        (rightHandButton && !isLeftHand))
-        {
-            ReleaseMag();
+            ReleaseMag(new SelectExitEventArgs());
         }
     }
 
@@ -96,41 +98,39 @@ public class Shoot : MonoBehaviour
         if (mag > 0)
         {
             mag--;
-            GameObject go = Instantiate(bullet, shootingPoint.position, transform.rotation);
+
+            GameObject go = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation); // 🔹 Ara es dispara correctament
             Destroy(go, 2f);
+        }
+
+        if (mag <= 0)
+        {
+            ReleaseMag();
+        }
+    }
+
+    private void ReleaseMag()
+    {
+        magSocket.allowSelect = true;
+
+        var interactable = magSocket.GetOldestInteractableSelected();
+        if (interactable != null)
+        {
+            Transform magTransform = interactable.transform;
+            magTransform.parent = null;
+
+            if (magTransform.TryGetComponent<Rigidbody>(out var rb))
+                rb.isKinematic = false;
+
+            Destroy(magTransform.gameObject, 30f);
         }
     }
 
     public void Reload()
     {
-        if (mag < 1)
-        {
-            mag = magCapacity;
-        }
-        else
-        {
-            mag = magCapacity + 1;
-        }
+        if (mag < 1) mag = magCapacity;
+        else mag = magCapacity + 1;
     }
-
-    public void ReleaseMag()
-    {
-        Debug.Log("Mag released");
-        if (mag < 1)
-        {
-            mag = 0;
-        }
-        else
-        {
-            mag = 1;
-        }
-
-        magSocket.allowSelect = false;
-        magSocket.GetOldestInteractableSelected().transform.parent = null;
-        magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = false;
-        Destroy(magSocket.GetOldestInteractableSelected().transform.gameObject, 30f);
-    }
-
 
     private void Grabbed(SelectEnterEventArgs arg0)
     {

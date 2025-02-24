@@ -19,19 +19,18 @@ public class MagGenerator : MonoBehaviour
 
     public void GenerateMag()
     {
+        if (magGenerated) return;
+
         StartCoroutine(SpawnMag());
     }
 
     private IEnumerator SpawnMag()
     {
-        if (magGenerated) yield return null;
-        if (!socket.isSelectActive) yield return null;
+        while (socket.hasSelection) yield return null;
 
         magGenerated = true;
 
         GameObject go = Instantiate(mag, transform.position, transform.rotation);
-
-        go.transform.SetParent(transform);
 
         socket.StartManualInteraction(go.GetComponent<IXRSelectInteractable>());
 
