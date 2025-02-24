@@ -33,11 +33,29 @@ public class Shoot : MonoBehaviour
     {
         grabbable.selectEntered.AddListener(Grabbed);
         magSocket.selectEntered.AddListener(Loaded);
+        magSocket.selectExited.AddListener(ReleaseMag);
 
         leftReleaseButton.action.started += LeftHandReload;
         rightReleaseButton.action.started += RightHandReload;
         leftReleaseButton.action.canceled += NoButton;
         rightReleaseButton.action.canceled += NoButton;
+    }
+
+    private void ReleaseMag(SelectExitEventArgs arg0)
+    {
+        if (mag < 1)
+        {
+            mag = 0;
+        }
+        else
+        {
+            mag = 1;
+        }
+
+        magSocket.allowSelect = false;
+        magSocket.GetOldestInteractableSelected().transform.parent = null;
+        magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = false;
+        Destroy(magSocket.GetOldestInteractableSelected().transform.gameObject, 30f);
     }
 
     private void Loaded(SelectEnterEventArgs arg0)
@@ -50,7 +68,7 @@ public class Shoot : MonoBehaviour
     {
         if (mag < 1)
         {
-            Reload();
+            ReleaseMag();
             return;
         }
 
@@ -65,6 +83,7 @@ public class Shoot : MonoBehaviour
     {
         grabbable.selectEntered.RemoveAllListeners();
         magSocket.selectEntered.RemoveListener(Loaded);
+        magSocket.selectExited.RemoveAllListeners();
 
         leftReleaseButton.action.started -= LeftHandReload;
         rightReleaseButton.action.started -= RightHandReload;
@@ -97,7 +116,15 @@ public class Shoot : MonoBehaviour
     public void ReleaseMag()
     {
         Debug.Log("Mag released");
-        mag = 0;
+        if (mag < 1)
+        {
+            mag = 0;
+        }
+        else
+        {
+            mag = 1;
+        }
+
         magSocket.allowSelect = false;
         magSocket.GetOldestInteractableSelected().transform.parent = null;
         magSocket.GetOldestInteractableSelected().transform.GetComponent<Rigidbody>().isKinematic = false;
