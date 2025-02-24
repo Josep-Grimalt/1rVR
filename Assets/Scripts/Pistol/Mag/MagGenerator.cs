@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Transformers;
 
 public class MagGenerator : MonoBehaviour
 {
@@ -23,17 +24,17 @@ public class MagGenerator : MonoBehaviour
 
     private IEnumerator SpawnMag()
     {
-        if(magGenerated) yield return null;
-        if(!socket.isSelectActive) yield return null;
+        if (magGenerated) yield return null;
+        if (!socket.isSelectActive) yield return null;
 
         magGenerated = true;
 
         GameObject go = Instantiate(mag, transform.position, transform.rotation);
 
         go.transform.SetParent(transform);
-        
-        socket.interactablesSelected.Add(go.GetComponent<XRGrabInteractable>());
-        
+
+        socket.StartManualInteraction(go.GetComponent<IXRSelectInteractable>());
+
         yield return new WaitForSeconds(delay);
 
         magGenerated = false;
