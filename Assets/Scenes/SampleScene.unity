@@ -584,17 +584,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155698251}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &161131828 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 834248972907917826, guid: eb736fc7337da37408f918b315e1688a, type: 3}
-  m_PrefabInstance: {fileID: 1957658100176778589}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &172071133
 GameObject:
   m_ObjectHideFlags: 0
@@ -5059,6 +5048,11 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1221147794 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2050118244246941839, guid: eb736fc7337da37408f918b315e1688a, type: 3}
+  m_PrefabInstance: {fileID: 1957658100176778589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1234523959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6803,13 +6797,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476439582}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.163, z: 0.0054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1374494239}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1503543067
 GameObject:
   m_ObjectHideFlags: 0
@@ -7528,12 +7522,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 64
   m_Handedness: 0
   m_AttachTransform: {fileID: 1661989911}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 161131828}
+  m_StartingSelectedInteractable: {fileID: 0}
   m_StartingTargetFilter: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
@@ -7550,7 +7544,19 @@ MonoBehaviour:
       - m_Target: {fileID: 1661989913}
         m_TargetAssemblyTypeName: MagGenerator, Assembly-CSharp
         m_MethodName: GenerateMag
-        m_Mode: 1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1221147794}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: set_isKinematic
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7586,7 +7592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mag: {fileID: 384032492543668981, guid: eb736fc7337da37408f918b315e1688a, type: 3}
   socket: {fileID: 1661989912}
-  delay: 5
+  delay: 2
 --- !u!65 &1661989914
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7606,7 +7612,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Size: {x: 0.2, y: 0.75, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1689172423
 GameObject:
@@ -8450,7 +8456,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1221147794}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_ShowInteractableHoverMeshes: 1
@@ -8458,7 +8476,7 @@ MonoBehaviour:
   m_InteractableCantHoverMeshMaterial: {fileID: 2100000, guid: fa042344ae7ecd74e9cdd5b97d98dd02, type: 2}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 0.1
+  m_RecycleDelayTime: 1
   m_HoverSocketSnapping: 0
   m_SocketSnappingRadius: 0.1
   m_SocketScaleMode: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Transformers;
@@ -17,7 +18,15 @@ public class MagGenerator : MonoBehaviour
         magGenerated = false;
     }
 
-    public void GenerateMag()
+    void Update()
+    {
+        if (socket.allowSelect)
+        {
+            GenerateMag(new SelectExitEventArgs());
+        }
+    }
+
+    public void GenerateMag(SelectExitEventArgs arg0)
     {
         if (magGenerated) return;
 
@@ -31,8 +40,7 @@ public class MagGenerator : MonoBehaviour
         magGenerated = true;
 
         GameObject go = Instantiate(mag, transform.position, transform.rotation);
-
-        socket.StartManualInteraction(go.GetComponent<IXRSelectInteractable>());
+        socket.interactionManager.SelectEnter(socket, go.GetComponent<IXRSelectInteractable>());
 
         yield return new WaitForSeconds(delay);
 

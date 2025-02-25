@@ -42,12 +42,10 @@ public class Shoot : MonoBehaviour
 
     private void ReleaseMag(SelectExitEventArgs arg0)
     {
-        Debug.Log("Mag released");
-
         if (mag < 1) mag = 0;
         else mag = 1;
 
-        magSocket.allowSelect = true;
+        magSocket.allowSelect = false;
 
         var interactable = magSocket.GetOldestInteractableSelected();
         if (interactable != null)
@@ -60,6 +58,8 @@ public class Shoot : MonoBehaviour
 
             Destroy(magTransform.gameObject, 30f);
         }
+
+        StartCoroutine(Reactivate());
     }
 
     private void Loaded(SelectEnterEventArgs arg0)
@@ -67,8 +67,8 @@ public class Shoot : MonoBehaviour
         var interactable = magSocket.GetOldestInteractableSelected();
         if (interactable != null)
         {
-            Rigidbody rb = interactable.transform.GetComponent<Rigidbody>();
-            if (rb != null) rb.isKinematic = true;
+            if (interactable.transform.TryGetComponent<Rigidbody>(out var rb))
+                rb.isKinematic = true;
         }
         Reload();
     }
@@ -99,19 +99,19 @@ public class Shoot : MonoBehaviour
         {
             mag--;
 
-            GameObject go = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation); // 🔹 Ara es dispara correctament
-            Destroy(go, 2f);
-        }
+            GameObject go = Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+            Destroy(go, 20f);
 
-        if (mag <= 0)
-        {
-            ReleaseMag();
+            if (mag <= 0)
+            {
+                ReleaseMag();
+            }
         }
     }
 
     private void ReleaseMag()
     {
-        magSocket.allowSelect = true;
+        magSocket.allowSelect = false;
 
         var interactable = magSocket.GetOldestInteractableSelected();
         if (interactable != null)
@@ -124,6 +124,8 @@ public class Shoot : MonoBehaviour
 
             Destroy(magTransform.gameObject, 30f);
         }
+
+        StartCoroutine(Reactivate());
     }
 
     public void Reload()
@@ -153,5 +155,11 @@ public class Shoot : MonoBehaviour
     {
         rightHandButton = false;
         leftHandButton = true;
+    }
+
+    private IEnumerator Reactivate()
+    {
+        yield return new WaitForSeconds(1);
+        magSocket.allowSelect = true;
     }
 }
