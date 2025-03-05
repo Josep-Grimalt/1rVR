@@ -122,7 +122,7 @@ public class Shoot : MonoBehaviour
             if (magTransform.TryGetComponent<Rigidbody>(out var rb))
                 rb.isKinematic = false;
 
-            Destroy(magTransform.gameObject, 30f);
+            //Destroy(magTransform.gameObject, 30f);
         }
 
         StartCoroutine(Reactivate());
